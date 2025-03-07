@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "ad7616.h": "c",
+        "main.h": "c",
+        "stm32f4xx_it.h": "c",
+        "ringbuffer.h": "c",
+        "lsc_airthmeitc.h": "c",
+        "cusum.h": "c",
+        "math.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "fft.h": "c",
+        "tim.h": "c",
+        "stdbool.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "arm_math.h": "c",
+        "arm_const_structs.h": "c",
+        "prorecdata.h": "c",
+        "global.h": "c",
+        "string": "c",
+        "array": "c",
+        "string_view": "c",
+        "usart.h": "c",
+        "control.h": "c"
+    }
+}
