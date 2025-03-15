@@ -11,6 +11,7 @@
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Include",
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Include\\dsp",
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\PrivateInclude",
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\BSP",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\MDK-ARM",
@@ -25,7 +26,12 @@
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Source\\MatrixFunctions",
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Source\\StatisticsFunctions",
                 "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Source\\SupportFunctions",
-                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Source\\TransformFunctions"
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Drivers\\CMSIS\\DSP\\Source\\TransformFunctions",
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\BSP\\SERIAL",
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\BSP\\RINGQUEUE",
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Communication",
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\USER",
+                "e:\\08.Project\\02.Vol_Dip\\01.Firmware\\dual_vol\\Task"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

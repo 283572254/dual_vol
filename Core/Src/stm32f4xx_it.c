@@ -22,7 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+extern void Sys_Tick_Count(void);
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +59,8 @@
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
+extern DMA_HandleTypeDef hdma_usart1_rx;
+extern DMA_HandleTypeDef hdma_usart1_tx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
 extern DMA_HandleTypeDef hdma_usart2_tx;
 extern DMA_HandleTypeDef hdma_usart3_rx;
@@ -331,23 +333,23 @@ void USART2_IRQHandler(void)
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
   // 检查是否是IDLE中断
-  if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE))
-  {
-    // 清除IDLE中断标志位
-    __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+  // if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE))
+  // {
+  //   // 清除IDLE中断标志位
+  //   __HAL_UART_CLEAR_IDLEFLAG(&huart2);
 
-    // 禁用DMA
-    HAL_UART_DMAStop(&huart2);
+  //   // 禁用DMA
+  //   HAL_UART_DMAStop(&huart2);
 
-    // 计算接收到的数据长度
-     RxTx_buffer.data_length[0] = sizeof(RxTx_buffer.rx_buffer[0]) - __HAL_DMA_GET_COUNTER(&hdma_usart2_rx);
+  //   // 计算接收到的数据长度
+  //    RxTx_buffer.data_length[0] = sizeof(RxTx_buffer.rx_buffer[0]) - __HAL_DMA_GET_COUNTER(&hdma_usart2_rx);
 
-    // 处理接收到的数据
-    ProcessReceivedData(RxTx_buffer.rx_buffer[0], RxTx_buffer.tx_buffer[0],RxTx_buffer.data_length[0]);
+  //   // 处理接收到的数据
+  //   ProcessReceivedData(RxTx_buffer.rx_buffer[0], RxTx_buffer.tx_buffer[0],RxTx_buffer.data_length[0]);
 
-    // 重新启动DMA接收
-    HAL_UART_Receive_DMA(&huart2, RxTx_buffer.rx_buffer[0], sizeof(RxTx_buffer.rx_buffer[0]));
-  }
+  //   // 重新启动DMA接收
+  //   HAL_UART_Receive_DMA(&huart2, RxTx_buffer.rx_buffer[0], sizeof(RxTx_buffer.rx_buffer[0]));
+  // }
   /* USER CODE END USART2_IRQn 1 */
 }
 
@@ -361,24 +363,36 @@ void USART3_IRQHandler(void)
   /* USER CODE END USART3_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
-  if(__HAL_UART_GET_FLAG(&huart3, UART_FLAG_IDLE))
-  {
-    // 清除IDLE中断标志位
-    __HAL_UART_CLEAR_IDLEFLAG(&huart3);
 
-    // 禁用DMA
-    HAL_UART_DMAStop(&huart3);
-
-    // 计算接收到的数据长度
-     RxTx_buffer.data_length[1] = sizeof(RxTx_buffer.rx_buffer[1]) - __HAL_DMA_GET_COUNTER(&hdma_usart3_rx);
-
-    // 处理接收到的数据
-    ProcessReceivedData(RxTx_buffer.rx_buffer[1], RxTx_buffer.tx_buffer[1],RxTx_buffer.data_length[1]);
-
-    // 重新启动DMA接收
-    HAL_UART_Receive_DMA(&huart3, RxTx_buffer.rx_buffer[1], sizeof(RxTx_buffer.rx_buffer[1]));
-  }
   /* USER CODE END USART3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA2 stream2 global interrupt.
+  */
+void DMA2_Stream2_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2_Stream2_IRQn 0 */
+
+  /* USER CODE END DMA2_Stream2_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart1_rx);
+  /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA2 stream7 global interrupt.
+  */
+void DMA2_Stream7_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2_Stream7_IRQn 0 */
+
+  /* USER CODE END DMA2_Stream7_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart1_tx);
+  /* USER CODE BEGIN DMA2_Stream7_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream7_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
@@ -393,14 +407,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     }
     else if(htim == (&htim4))
     {
-      
+      Sys_Tick_Count();
 
     }
     else if(htim == (&htim3))
     {
 			
-      HAL_UART_Transmit_DMA(&huart2,RxTx_buffer.tx_buffer[0],RxTx_buffer.data_length[0]);
-      HAL_UART_Transmit_DMA(&huart3,RxTx_buffer.tx_buffer[1],RxTx_buffer.data_length[1]);
+
       //HAL_UART_Transmit_DMA(&huart4,RxTx_buffer.tx_buffer[2],RxTx_buffer.data_length[2]);
       
     }

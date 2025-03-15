@@ -311,6 +311,7 @@ void Phase_Compare(RingBuffer* rb, float32_t *data,uint8_t *Phase_Count)
     {
 		// 将环形缓冲区的数据复制到data数组中
         memcpy(data,rb->buffer,BUFFER_SIZE*sizeof(float32_t));
+
 		// 重置周期标志位
         PhaseFlag = 0;
     }

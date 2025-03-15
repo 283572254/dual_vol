@@ -1,7 +1,7 @@
 #include "LSC_Airthmeitc.h"
 
 
-float Calc_Data[SAMPLING_CHANNEL][BUFFER_SIZE];     //三相AD采样值
+float g_Calc_Data[SAMPLING_CHANNEL][BUFFER_SIZE];     //三相AD采样值
 
 uint8_t Impelement_Start = 0;
 
@@ -38,7 +38,7 @@ float effect[SAMPLING_CHANNEL] = {0};
 /**
  * @brief LSC_Airthmeitc 函数
  *
- * 从环形缓冲区拷贝数据到 Calc_Data 数组,通过最小二乘法
+ * 从环形缓冲区拷贝数据到 g_Calc_Data 数组,通过最小二乘法
  * 计算实部和虚部，并根据计算结果执行条件判断。
  *
  */
@@ -51,14 +51,14 @@ void LSC_Airthmeitc(void) {
         
     
 
-    // 将环形缓冲区的数据拷贝到 Calc_Data 数组中
+    // 将环形缓冲区的数据拷贝到 g_Calc_Data 数组中
 
-        rb_to_array(&Rb_CalcData[UM_C], Calc_Data[0]);
+        rb_to_array(&Rb_CalcData[UM_C], g_Calc_Data[0]);
     
         // 计算实部和虚部
         for (int k = 0; k < SAMPLING_NUM; k++) {
-            real[0] += Calc_Data[0][Ab_SAMPLING_NUM+k] * HL1[k];
-            plural[0] += Calc_Data[0][Ab_SAMPLING_NUM+k] * HL2[k];
+            real[0] += g_Calc_Data[0][Ab_SAMPLING_NUM+k] * HL1[k];
+            plural[0] += g_Calc_Data[0][Ab_SAMPLING_NUM+k] * HL2[k];
         }
         effect[0] = sqrt(real[0] * real[0] + plural[0] * plural[0]);
         

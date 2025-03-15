@@ -40,7 +40,6 @@ extern "C" {
 #include <stdbool.h>
 #include "arm_math.h"
 #include "fft.h"
-#include "ProRecData.h"
 #include "Control.h"
 #include "global.h"
 /* USER CODE END Includes */

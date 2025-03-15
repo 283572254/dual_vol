@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "../USER/user.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +47,7 @@ void delay_init(uint16_t SYSCLK);
 
 /* USER CODE BEGIN PV */
 
-float f32FFtTest[6] = {0};
+
 
 extern float32_t FFT_Voltage_Value(RingBuffer *FVoltage_Value);
 /* USER CODE END PV */
@@ -69,6 +69,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
   
   /* USER CODE END 1 */
@@ -100,14 +101,13 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   Global_Init();
+  user_setup();
   AD7616_Set_Range(Range_10_V);
   AD7616_Channel_Group_Select(Channel_Group_0);
   AD7616_Reset();
   for (int i = 0; i < 16; i++) 
     rb_init(&Rb_CalcData[i]);
-  
-  RxTx_buffer_init();
-  Start_UART_DMA_Receive();
+//  Start_UART_DMA_Receive();
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_TIM_Base_Start_IT(&htim4);
@@ -126,11 +126,8 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 		LSC_Airthmeitc();
-  //  for(int i=0;i<6;i++)
-  //  {
-  //   int ci = u8FFt_Sequence[i];
-  //    f32FFtTest[i] = FFT_Voltage_Value(&Rb_CalcData[ci]);
-  //  }
+    user_loop();
+
 
   //  if (StartFlag == 1 && LSC_flag == 1)
   //  { 
